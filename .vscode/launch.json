@@ -1,0 +1,12 @@
+{
+	"configurations": [
+		{
+			"type": "java",
+			"name": "CodeLens (Launch) - Main",
+			"request": "launch",
+			"mainClass": "org.jdsnet.lucee.lucli.Main",
+			"projectName": "lucli",
+			"args": "server start"
+		}
+	]
+}
