@@ -1,16 +1,13 @@
 package org.jdsnet.lucee.lucli.commands;
 
 import java.io.File;
-import java.io.IOException;
-import java.net.ServerSocket;
 import java.util.concurrent.Callable;
 
 import org.jdsnet.lucee.lucli.commands.Server.Start;
-import org.jdsnet.lucee.lucli.server.DevelopmentServer;
+import org.jdsnet.lucee.lucli.server.UndertowServer;
 
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
-import picocli.CommandLine.ParentCommand;
 
 /**
  * Server
@@ -44,11 +41,20 @@ public class Server implements Callable<Void> {
 		private Integer port;
 
 
+		@Option(
+			names={"-s", "--server"}
+			,defaultValue="tomcat"
+		)
+		private String serverType;
+
+
 		public Void call() throws Exception {
 			System.out.println("Starting web server in " + webroot.getAbsolutePath() + " on port " + port + ".");
 			
-			new DevelopmentServer(port, webroot).start();
-
+			new UndertowServer()
+				.setPort(port)
+				.setWebroot(webroot)
+				.start();
 
 			System.out.println("Server listening on " + port);
 
